@@ -1,0 +1,10 @@
+.jumbotron {
+    background: cadetblue;
+    text-align: center;
+    color: white;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#submitButton {
+    background-color: teal;
+}
