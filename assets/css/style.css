@@ -8,3 +8,18 @@
 #submitButton {
     background-color: teal;
 }
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding-right: 100px;
+    padding-top: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.panel-heading {
+    font-weight: bold;
+    font-size: 15px;
+}

@@ -1,106 +1,57 @@
-// $("#submitButton").on("click", function(event) {
-// console.log("this is successful.")
-// alert("test")
-// event.preventDefault();
-// });
-
-
 var config = {
-    apiKey: "AIzaSyArrGn21NYI82Whj4igrW_8u0NGekgBfE4",
-    authDomain: "train-scheduler-6.firebaseapp.com",
-    databaseURL: "https://train-scheduler-6.firebaseio.com",
-    projectId: "train-scheduler-6",
-    storageBucket: "train-scheduler-6.appspot.com",
-    messagingSenderId: "361420812020"
-  };
-  firebase.initializeApp(config);
+                apiKey: "AIzaSyArrGn21NYI82Whj4igrW_8u0NGekgBfE4",
+                authDomain: "train-scheduler-6.firebaseapp.com",
+                databaseURL: "https://train-scheduler-6.firebaseio.com",
+                projectId: "train-scheduler-6",
+                storageBucket: "train-scheduler-6.appspot.com",
+                messagingSenderId: "361420812020"
+            };
+            firebase.initializeApp(config);
 
-// Create a variable to reference the database.
-var database = firebase.database();
+            var database = firebase.database();
 
-// Initial Values
-var name = "";
-var role = "";
-var startDate = "";
-var monthlyRate = "";
-var monthsWorked = "";
-var totalBilled = "";
+            // Button click event
+            $("#submitButton").on("click", function (event) {
+                event.preventDefault();
 
-// Capture Button Click
-$("#submitButton").on("click", function (event) {
-    event.preventDefault();
+                // Initial Values
+                var trainName = $("#trainName").val().trim();
+                console.log("Train Name: " + trainName);
+                var destination = $("#destination").val().trim();
+                console.log("Destination: " + destination);
+                var firstTrain = $("#firstTrain").val().trim();
+                console.log("Start Date: " + firstTrain);
+                var frequency = $("#frequency").val().trim();
+                console.log("Frequency: " + frequency);
 
-    // Grabbed values from text-boxes
-    name = $("#employeename").val().trim();
-    console.log(name);
-    role = $("#role").val().trim();
-    console.log(role);
-    startDate = $("#startDate").val().trim();
-    console.log(startDate);
-    monthlyRate = $("#monthlyRate").val().trim();
-    console.log(monthlyRate);
+                // Code for "Setting values in the database"
+                database.ref().push({
+                    trainName: trainName,
+                    destination: destination,
+                    firstTrain: firstTrain,
+                    frequency: frequency,
+                });
+            });
 
+            database.ref().on("child_added", function (childSnapshot) {
+                var name = childSnapshot.val().trainName;
+                var destination = childSnapshot.val().destination;
+                var frequency = childSnapshot.val().frequency;
 
-    monthsWorked = -(moment(startDate).diff(moment(), "months"));
-    console.log("months worked" + monthsWorked);
-    totalBilled = (monthsWorked * monthlyRate);
-    console.log("total billed: " + totalBilled);
+                function decrementmin() {
+                    location.reload();
+                };
 
-    // Code for "Setting values in the database"
-    database.ref().push({
-        name: name,
-        role: role,
-        startDate: startDate,
-        monthlyRate: monthlyRate,
-        monthsWorked: monthsWorked,
-        totalBilled: totalBilled
-    });
+                var frequency = parseInt(frequency);
+                var currentTime = moment();
+                var enteredTime = moment(childSnapshot.val().time, 'HH:mm');
+                var trainTime = moment(enteredTime).format('HH:mm');
 
-});
-
-
-database.ref().on("child_added", function (childSnapshot) {
-    // Log everything that's coming out of snapshot
-    console.log(childSnapshot.val().name);
-    console.log(childSnapshot.val().role);
-    console.log(childSnapshot.val().startDate);
-    console.log(childSnapshot.val().monthlyRate);
-
-
-
-
-
-    // full list of items to the well
-    $("#current-trains").append("<div class='well'><span id='name'> " + childSnapshot.val().name +
-        " </span><span id='email'> " + childSnapshot.val().role +
-        " </span><span id='age'> " + childSnapshot.val().startDate +
-        " </span><span id='comment'> " + childSnapshot.val().monthlyRate +
-        " </span><span id='comment'> " + childSnapshot.val().monthsWorked + 
-        " </span><span id='comment'> " + childSnapshot.val().totalBilled + " </span></div>");
-
-
-    // Handle the errors
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-});
-
-// // Firebase watcher + initial loader HINT: .on("value")
-// database.ref().on("value", function (snapshot) {
-
-//     // Log everything that's coming out of snapshot
-//     console.log(snapshot.val());
-//     console.log(snapshot.val().name);
-//     console.log(snapshot.val().email);
-//     console.log(snapshot.val().age);
-//     console.log(snapshot.val().comment);
-
-//     // Change the HTML to reflect
-//     $("#name-display").text(snapshot.val().name);
-//     $("#email-display").text(snapshot.val().email);
-//     $("#age-display").text(snapshot.val().age);
-//     $("#comment-display").text(snapshot.val().comment);
-
-//     // Handle the errors
-// }, function (errorObject) {
-//     console.log("Errors handled: " + errorObject.code);
-// });
+                $('#currentTime').text(currentTime);
+                $('table').append(
+                    "<tr><td>" + childSnapshot.val().trainName +
+                    "</td><td>" + childSnapshot.val().destination +
+                    "</td><td>" + childSnapshot.val().frequency +
+                    "</td><td>" + moment(nextTrain).format("HH:mm a") +
+                    "</td><td>" + minutesAway + "</td></tr>");
+            });

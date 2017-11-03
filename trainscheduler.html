@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NYTimes Search</title>
-    <!-- <link href="assets/css/style.css" rel="stylesheet" type="text/css" /> -->
+    <title>Train Scheduler</title>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -25,7 +25,7 @@
         crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -43,8 +43,17 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Current Trains</div>
                 <div class="panel-body">
-                    <div id="current-trains">
-                    </div>
+                    <!-- <div id="current-trains"> -->
+                        <table>
+                            <tr>
+                                <th>Train Name</th>
+                                <th>Destination</th>
+                                <th>Frequency</th>
+                                <th>Next Arrival</th>
+                                <th>Minutes Away</th>
+                            </tr>
+                        </table>
+                    <!-- </div> -->
                 </div>
             </div>
             <div class="panel panel-info">
@@ -53,36 +62,33 @@
                     <form>
                         <div class="form-group">
                             <label>Train Name</label>
-                            <input type="text" class="form-control " id="employeename">
+                            <input type="text" class="form-control " id="trainName">
                         </div>
                         <div class="form-group">
                             <label>Destination</label>
-                            <input type="text" class="form-control" id="role">
+                            <input type="text" class="form-control" id="destination">
                         </div>
 
                         <div class="form-group">
-                            <label>Start Date (DD/MM/YY - ex: 01/01/89)</label>
-                            <input type="date" class="form-control" id="startDate">
+                            <label>First Train Time (HH:mm - Military Time)</label>
+                            <input type="time" class="form-control" id="firstTrain" format="HH:mm">
                         </div>
                         <div class="form-group">
                             <label>Frequency</label>
-                            <input type="number" class="form-control" id="monthlyRate">
+                            <input type="number" class="form-control" id="frequency">
                         </div>
                         <button id="submitButton" class="btn btn-primary">Submit</button>
                 </div>
-
                 </form>
-
-
             </div>
-
 
         </div>
         <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="https://code.jquery.com/jquery.js">
+        </script>
         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
         <script type="text/javascript" src="assets/javascript/app.js"></script>
-        
+
     </container>
 
 
