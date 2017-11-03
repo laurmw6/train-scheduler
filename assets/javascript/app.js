@@ -47,6 +47,15 @@ var config = {
                 var enteredTime = moment(childSnapshot.val().time, 'HH:mm');
                 var trainTime = moment(enteredTime).format('HH:mm');
 
+                var trainTimediff = moment(trainTime, 'HH:mm');
+                var tDifference = moment().diff(moment(trainTimediff), 'minutes');
+                //REMAINDER 
+                var tRemainder = tDifference % frequency;
+                //MINUTES UNTIL NEXT TRAIN
+                var minutesAway = frequency - tRemainder;
+                //NEXT TRAIN
+                var nextTrain = moment().add(minutesAway, 'minutes');
+
                 $('#currentTime').text(currentTime);
                 $('table').append(
                     "<tr><td>" + childSnapshot.val().trainName +
